@@ -1,11 +1,8 @@
 // GENERATED CODE. DON'T MODIFY. Look at SpritesExporter.cs.
-import NormalWalkAnimationJson from './WalkAnimations/Normal.json';
-import NormalWalkAnimationGif from './WalkAnimations/Normal.gif';
-
 export let animationsJsons: { [name: string]: any } = {};
 export let animationGifs: { [name: string]: any } = {};
-animationsJsons['WalkAnimations.Normal'] = NormalWalkAnimationJson;
-animationGifs['WalkAnimations.Normal'] = NormalWalkAnimationGif;
+animationsJsons['WalkAnimations.Normal'] = require('./WalkAnimations/Normal.json');
+animationGifs['WalkAnimations.Normal'] = require('./WalkAnimations/Normal.gif');
 animationsJsons['WalkAnimations.Jump'] = require('./WalkAnimations/Jump.json');
 animationGifs['WalkAnimations.Jump'] = require('./WalkAnimations/Jump.gif');
 animationsJsons['WalkAnimations.Run'] = require('./WalkAnimations/Run.json');
