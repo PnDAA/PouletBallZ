@@ -57,10 +57,10 @@ export default class ChickenPrevisualization extends React.Component {
         let bodyPosition = Vector2D.add(startPosition, new Vector2D(cdi.BodyPivot[0], -cdi.BodyPivot[1]));
 
         let chicken = RestRequestsService.getChicken();
-        this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getEyeInfo(chicken.Eye), cdi.EyePosition);
-        this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getArmInfo(chicken.Arm), cdi.ArmPosition);
-        this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getHairInfo(chicken.Hair), cdi.HairPosition);
-        this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getMouthInfo(chicken.Mouth), cdi.MouthPosition);
+        await this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getEyeInfo(chicken.Eye), cdi.EyePosition);
+        await this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getArmInfo(chicken.Arm), cdi.ArmPosition);
+        await this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getHairInfo(chicken.Hair), cdi.HairPosition);
+        await this.drawElementInCanvasAsync(context, bodyPosition, ChickenDisplayService.getMouthInfo(chicken.Mouth), cdi.MouthPosition);
     }
 
     render() {
