@@ -1,7 +1,7 @@
 import { AnimationInfoType, SpriteInfoType } from './restRequestsService';
 import chickenJson from './Assets/UnityExport/chicken.json';
-import { spritesJsons } from './Assets/UnityExport/sprites';
-import { animationsJsons } from './Assets/UnityExport/animations';
+import { spritesImages, spritesJsons } from './Assets/UnityExport/sprites';
+import { animationGifs, animationsJsons } from './Assets/UnityExport/animations';
 
 /*
     Files are in src and not in public to be usable in production + it is good practice:
@@ -146,6 +146,36 @@ export class ChickenDisplayServiceClass {
     public getWaitAnimationInfo(index: number): IAnimationInfo {
         this.checkIsInitialized();
         return this._waitAnimationInfo![index];
+    }
+
+    public getArmImage(index: number): any {
+        this.checkIsInitialized();
+        return spritesImages[this._armsInfo![index].RequireKey];
+    }
+
+    public getEyeImage(index: number): ISpriteInfo {
+        this.checkIsInitialized();
+        return spritesImages[this._eyesInfo![index].RequireKey];
+    }
+
+    public getMouthImage(index: number): ISpriteInfo {
+        this.checkIsInitialized();
+        return spritesImages[this._mouthsInfo![index].RequireKey];
+    }
+
+    public getHairImage(index: number): ISpriteInfo {
+        this.checkIsInitialized();
+        return spritesImages[this._hairsInfo![index].RequireKey];
+    }
+
+    public getWalkAnimationImage(index: number): IAnimationInfo {
+        this.checkIsInitialized();
+        return animationGifs[this._walkAnimationInfo![index].RequireKey];
+    }
+
+    public getWaitAnimationImage(index: number): IAnimationInfo {
+        this.checkIsInitialized();
+        return animationGifs[this._waitAnimationInfo![index].RequireKey];
     }
 
     public getSpritesInfo(spriteType: SpriteInfoType): ISpriteInfo[] {
