@@ -67,8 +67,6 @@ export default class ChickenPrevisualization extends React.Component {
     }
 
     private async drawElementAsync(bodyPosition: Vector2D, spriteInfo: ISpriteInfo, elementPosition: [number, number], color?: string): Promise<void> {
-        let cdi: IChickenDisplayInfo = ChickenDisplayService.getChickenDisplayInfo();
-
         // Pivot is specified from bottom left (y reversed). So we need to remove the sprite height.
         let realPivot = new Vector2D(-spriteInfo.Pivot[0], spriteInfo.Pivot[1] - spriteInfo.Size[1]);
         let pivot = Vector2D.add(bodyPosition, realPivot);

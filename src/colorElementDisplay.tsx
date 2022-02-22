@@ -1,7 +1,7 @@
 import { Grid, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 import React from "react";
-import { rgbToHex, hexToRgb } from './colorUtils';
-import { Chicken, Color, ColorType, RestRequestsService } from './restRequestsService';
+import { hexToRgb } from './colorUtils';
+import { Color, ColorType, RestRequestsService } from './restRequestsService';
 
 type ColorElementProps = {
     colorType: ColorType
