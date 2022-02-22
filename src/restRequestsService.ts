@@ -1,6 +1,7 @@
 import AuthenticationService from './authenticationService';
 import { rgbToHex } from './colorUtils';
 import { EnvironmentInfo } from './environmentInfo';
+import { Signal } from './signal';
 
 export type Color = { r: number, g: number, b: number };
 
@@ -21,6 +22,8 @@ export type AnimationInfoType = "Walk" | "Wait";
 export type ColorType = "Primary" | "Secondary";
 
 class RestRequestsServiceClass {
+    public onColorChanged:Signal<RestRequestsServiceClass, string> = new Signal<RestRequestsServiceClass, string>();
+
     private static instance: RestRequestsServiceClass | undefined;
     static getInstance(): RestRequestsServiceClass {
         if (!RestRequestsServiceClass.instance)
@@ -119,6 +122,9 @@ class RestRequestsServiceClass {
             case "Secondary": this._chicken!.SecondaryColor = color; break;
             default: throw new Error("Not implemented");
         }
+
+        // Send event
+        this.onColorChanged.trigger(this, colorType);
 
         // Update database
         return this.sendRequest("SetColor", {

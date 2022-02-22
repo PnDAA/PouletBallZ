@@ -81,9 +81,9 @@ export default class ChickenPrevisualization extends React.Component {
         await this.drawImageInCanvasWithColorAsync(spritesImages[spriteInfo.RequireKey], elementImagePosition, color);
     }
 
-    public async componentDidMount() {
-        let primaryColor:string = RestRequestsService.getHexColorAsync("Primary");
-        let secondaryColor:string = RestRequestsService.getHexColorAsync("Secondary");
+    public async DrawAsync() {
+        let primaryColor: string = RestRequestsService.getHexColorAsync("Primary");
+        let secondaryColor: string = RestRequestsService.getHexColorAsync("Secondary");
 
         let context: CanvasRenderingContext2D = this.canvasElement!.getContext("2d")!;
 
@@ -107,6 +107,11 @@ export default class ChickenPrevisualization extends React.Component {
         await this.drawElementAsync(bodyPosition, ChickenDisplayService.getArmInfo(chicken.Arm), cdi.ArmPosition, secondaryColor);
         await this.drawElementAsync(bodyPosition, ChickenDisplayService.getHairInfo(chicken.Hair), cdi.HairPosition, secondaryColor);
         await this.drawElementAsync(bodyPosition, ChickenDisplayService.getMouthInfo(chicken.Mouth), cdi.MouthPosition);
+    }
+
+    public async componentDidMount() {
+        await this.DrawAsync();
+        RestRequestsService.onColorChanged.on((_, __) => this.DrawAsync());
     }
 
     // position absolute to not change the center
