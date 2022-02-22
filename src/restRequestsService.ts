@@ -1,4 +1,5 @@
 import AuthenticationService from './authenticationService';
+import { rgbToHex } from './colorUtils';
 import { EnvironmentInfo } from './environmentInfo';
 
 export type Color = { r: number, g: number, b: number };
@@ -95,6 +96,20 @@ class RestRequestsServiceClass {
             method: "POST",
             body: JSON.stringify({ index: index, type: animationType }),
         });
+    }
+
+    public getHexColorAsync(colorType:ColorType):string {
+        let color: Color | undefined;
+        switch (colorType) {
+            case "Primary": color = this._chicken!.PrimaryColor; break;
+            case "Secondary": color = this._chicken!.SecondaryColor; break;
+            default: throw new Error("Not impl");
+        }
+        return rgbToHex(
+            Math.round(color.r * 255),
+            Math.round(color.g * 255),
+            Math.round(color.b * 255)
+        );
     }
 
     public setColorAsync(colorType: ColorType, color: Color): Promise<Response> {

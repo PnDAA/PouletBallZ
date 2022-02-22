@@ -16,19 +16,7 @@ export default class ColorElementDisplay extends React.Component<ColorElementPro
 
     constructor(props: ColorElementProps) {
         super(props);
-        const chicken: Chicken = RestRequestsService.getChicken();
-
-        let color: Color | undefined;
-        switch (this.props.colorType) {
-            case "Primary": color = chicken.PrimaryColor; break;
-            case "Secondary": color = chicken.SecondaryColor; break;
-            default: throw new Error("Not impl");
-        }
-        this.colorHexString = rgbToHex(
-            Math.round(color.r * 255),
-            Math.round(color.g * 255),
-            Math.round(color.b * 255)
-        );
+        this.colorHexString = RestRequestsService.getHexColorAsync(this.props.colorType);
     }
 
     setHexColor(hexColor: string) {
