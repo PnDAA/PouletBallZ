@@ -50,7 +50,7 @@ export default class ColorElementDisplay extends React.Component<ColorElementPro
 
             <ColorPicker
                 ref={colorPicker => this.colorPickerElement = colorPicker}
-                color='this.colorHexString'
+                color={this.colorHexString}
                 onColorChange={(color) => this.setHexColor(color)}>
             </ColorPicker>
         </>
