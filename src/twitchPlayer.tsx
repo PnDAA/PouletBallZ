@@ -1,3 +1,4 @@
+import { Link } from '@mui/material';
 import Button from '@mui/material/Button';
 import React from 'react';
 import "./utils.css";
@@ -56,11 +57,15 @@ export default class TwitchPlayer extends React.Component {
                 {this._displayStream ? (
                     <>
                         <div id="twitch-embed"></div>
-                        <Button  color="secondary" variant="text" onClick={() => this.setDisplayStream(false)}>Hide stream</Button>
+                        <Button color="secondary" variant="text" onClick={() => this.setDisplayStream(false)}>Hide stream</Button>
                     </>
                 ) : (
-                    <Button color="secondary" variant="text" onClick={() => this.setDisplayStream(true)}>Open stream</Button>
+                    <>
+                        <Button color="secondary" variant="text" onClick={() => this.setDisplayStream(true)}>Open stream</Button>
+                    </>
                 )}
+
+                <Link href="https://nikoshopz.com/" color="secondary" target="_blank" underline="hover">Go to Shop</Link>
             </div>
         </>
     }
