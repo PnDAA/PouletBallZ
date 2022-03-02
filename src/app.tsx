@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Topbar from './topBar';
 import TwitchPlayer from './twitchPlayer';
 import PersonalizationPage from './personalizationPage';
+import { Typography } from '@mui/material';
 
 export default class App extends React.Component {
     // TODO handle token expiration
@@ -22,6 +23,9 @@ export default class App extends React.Component {
         if (AuthenticationService.isDisconnected()) {
             return (
                 <div className='center'>
+                    <div style={{paddingBottom: "70px"}}>
+                        <img src={require("./Assets/Logo.png")} alt="logo"></img>
+                    </div>
                     <Button variant="contained" onClick={() => AuthenticationService.authenticate()}>
                         Connexion avec Twitch
                     </Button>
@@ -31,6 +35,7 @@ export default class App extends React.Component {
             return (
                 <div className="center">
                     <CircularProgress color="secondary" />
+                    <Typography>Connexion en cours...</Typography>
                 </div>
             );
         } else if (AuthenticationService.isConnected()) {
