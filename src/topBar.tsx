@@ -3,16 +3,16 @@ import React from 'react';
 import AuthenticationService from "./authenticationService";
 
 export default class Topbar extends React.Component {
-    public anchorElement:Element | undefined;
+    public anchorElement: Element | undefined;
 
     public handleCloseUserMenu() {
         this.anchorElement = undefined;
-        this.setState({menuOpen:false})
+        this.setState({ menuOpen: false })
     }
 
     public handleOpenUserMenu(element: Element | undefined) {
         this.anchorElement = element;
-        this.setState({menuOpen:true})
+        this.setState({ menuOpen: true })
     }
 
     public logout() {
@@ -26,13 +26,17 @@ export default class Topbar extends React.Component {
                     <Toolbar>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                             {AuthenticationService.getPseudo()}
+                            <div className="center">
+                                <img src={require("./Assets/Logo.png")} alt="logo" style={{ maxHeight: "50px", position: "absolute", top: "0px" }} />
+                            </div>
                         </Typography>
+
                         <Tooltip title="Open settings">
                             <Avatar
                                 alt="profile avatar"
                                 src={AuthenticationService.getProfilePicture()}
                                 sx={{ width: 56, height: 56 }}
-                                style={{cursor: "pointer"}}
+                                style={{ cursor: "pointer" }}
                                 onClick={(event) => this.handleOpenUserMenu(event.currentTarget)}
                             />
                         </Tooltip>
