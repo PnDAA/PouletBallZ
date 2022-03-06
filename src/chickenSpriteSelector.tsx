@@ -28,8 +28,8 @@ export default class ChickenSpriteSelector extends React.Component<ChickenElemen
 
         this._lockedItems = ChickenDisplayService.getSpritesInfo(this.props.spriteType)
             .filter(s => s !== undefined)
-            .filter(s => !this._defaultItems.some(i => i == s))
-            .filter(s => !this._unlockedItems.some(i => i == s));
+            .filter(s => !this._defaultItems.some(i => i === s))
+            .filter(s => !this._unlockedItems.some(i => i === s));
 
         this._allItems = this._defaultItems.concat(this._unlockedItems).concat(this._lockedItems);
     }
@@ -44,7 +44,7 @@ export default class ChickenSpriteSelector extends React.Component<ChickenElemen
     }
 
     isEnabled(spriteInfo: ISpriteInfo) {
-        return !this._lockedItems.some(s => s.Index == spriteInfo.Index);
+        return !this._lockedItems.some(s => s.Index === spriteInfo.Index);
     }
 
     render() {
