@@ -23,6 +23,15 @@ export interface IChickenDisplayInfo {
     HairMapping: string[];
     MouthMapping: string[];
     EyeMapping: string[];
+
+    UnlockedByDefaults: {
+        Arm: number[],
+        Eye: number[],
+        Hair: number[],
+        Mouth: number[],
+        WaitAnimation: number[],
+        WalkAnimation: number[]
+    }
 }
 
 export interface IAnimationInfo {
