@@ -3,7 +3,17 @@ import { rgbToHex } from './colorUtils';
 import { EnvironmentInfo } from './environmentInfo';
 import { Signal } from './signal';
 
-export type Color = { r: number, g: number, b: number };
+export type Color = {
+    r: number,
+    g: number,
+    b: number
+};
+
+export type UnlockElementInfo = {
+    Value: number,
+    Reason: string,
+    UnlockedDate: number
+}
 
 export interface Chicken {
     Arm: number;
@@ -14,7 +24,8 @@ export interface Chicken {
     WalkAnimation: number;
     PrimaryColor: Color;
     SecondaryColor: Color;
-    /* other not necessary stuff for now*/
+    UnlockedElements: { [type: string]: UnlockElementInfo };
+    /* other fields are not necessary for now */
 }
 
 export type SpriteInfoType = "Eye" | "Arm" | "Hair" | "Mouth";
@@ -22,7 +33,7 @@ export type AnimationInfoType = "Walk" | "Wait";
 export type ColorType = "Primary" | "Secondary";
 
 class RestRequestsServiceClass {
-    public onColorChanged:Signal<RestRequestsServiceClass, string> = new Signal<RestRequestsServiceClass, string>();
+    public onColorChanged: Signal<RestRequestsServiceClass, string> = new Signal<RestRequestsServiceClass, string>();
 
     private static instance: RestRequestsServiceClass | undefined;
     static getInstance(): RestRequestsServiceClass {
@@ -101,7 +112,7 @@ class RestRequestsServiceClass {
         });
     }
 
-    public getHexColorAsync(colorType:ColorType):string {
+    public getHexColorAsync(colorType: ColorType): string {
         let color: Color | undefined;
         switch (colorType) {
             case "Primary": color = this._chicken!.PrimaryColor; break;

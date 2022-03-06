@@ -29,8 +29,8 @@ export interface IChickenDisplayInfo {
         Eye: number[],
         Hair: number[],
         Mouth: number[],
-        WaitAnimation: number[],
-        WalkAnimation: number[]
+        Wait: number[],
+        Walk: number[]
     }
 }
 
