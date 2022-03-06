@@ -1,17 +1,16 @@
 import React from 'react';
-import { AnimationInfoType, Chicken, SpriteInfoType } from './restRequestsService';
+import { Chicken } from './restRequestsService';
 import "./utils.css";
 import { Grid } from '@mui/material';
-import { ChickenDisplayService, IAnimationInfo, ISpriteInfo } from './chickenDisplayService';
-import SpriteInfoElementDisplay from './spriteInfoElementDisplay';
-import AnimationInfoElementDisplay from './animationInfoElementDisplay';
+import { ChickenDisplayService, ElementInfo } from './chickenDisplayService';
 import ColorElementDisplay from './colorElementDisplay';
 import ChickenPrevisualization from './chickenPrevisualization';
+import ElementDisplay from './elementDisplay';
+import { ElementInfoType } from './Assets/UnityExport/chickenElements';
 
 type ChickenDisplayProps = {
     chicken: Chicken;
-    onClickSpriteChange?: (type: SpriteInfoType) => void;
-    onClickAnimationChange?: (type: AnimationInfoType) => void;
+    onClickElementChange?: (type: ElementInfoType) => void;
 }
 
 export class ChickenDisplay extends React.Component<ChickenDisplayProps> {
@@ -19,27 +18,27 @@ export class ChickenDisplay extends React.Component<ChickenDisplayProps> {
         return this.props.chicken;
     }
 
-    public get eyeInfo(): ISpriteInfo {
+    public get eyeInfo(): ElementInfo {
         return ChickenDisplayService.getEyeInfo(this.chicken.Eye);
     }
 
-    public get armInfo(): ISpriteInfo {
+    public get armInfo(): ElementInfo {
         return ChickenDisplayService.getArmInfo(this.chicken.Arm);
     }
 
-    public get hairInfo(): ISpriteInfo {
+    public get hairInfo(): ElementInfo {
         return ChickenDisplayService.getHairInfo(this.chicken.Hair);
     }
 
-    public get mouthInfo(): ISpriteInfo {
+    public get mouthInfo(): ElementInfo {
         return ChickenDisplayService.getMouthInfo(this.chicken.Mouth);
     }
 
-    public get walkAnimationInfo(): IAnimationInfo {
+    public get walkAnimationInfo(): ElementInfo {
         return ChickenDisplayService.getWalkAnimationInfo(this.chicken.WalkAnimation);
     }
 
-    public get waitAnimationInfo(): IAnimationInfo {
+    public get waitAnimationInfo(): ElementInfo {
         return ChickenDisplayService.getWaitAnimationInfo(this.chicken.WaitAnimation);
     }
 
@@ -55,15 +54,15 @@ export class ChickenDisplay extends React.Component<ChickenDisplayProps> {
             <ChickenPrevisualization />
             <br />
             <Grid container spacing={2}>
-                <SpriteInfoElementDisplay spriteInfo={this.eyeInfo} onChangeClick={() => this.props.onClickSpriteChange?.("Eye")} />
-                <SpriteInfoElementDisplay spriteInfo={this.armInfo} onChangeClick={() => this.props.onClickSpriteChange?.("Arm")} />
-                <SpriteInfoElementDisplay spriteInfo={this.hairInfo} onChangeClick={() => this.props.onClickSpriteChange?.("Hair")} />
-                <SpriteInfoElementDisplay spriteInfo={this.mouthInfo} onChangeClick={() => this.props.onClickSpriteChange?.("Mouth")} />
+                <ElementDisplay elementInfo={this.eyeInfo} onChangeClick={() => this.props.onClickElementChange?.("Eye")} />
+                <ElementDisplay elementInfo={this.armInfo} onChangeClick={() => this.props.onClickElementChange?.("Arm")} />
+                <ElementDisplay elementInfo={this.hairInfo} onChangeClick={() => this.props.onClickElementChange?.("Hair")} />
+                <ElementDisplay elementInfo={this.mouthInfo} onChangeClick={() => this.props.onClickElementChange?.("Mouth")} />
             </Grid>
             <br />
             <Grid container spacing={2}>
-                <AnimationInfoElementDisplay animationInfo={this.walkAnimationInfo} onChangeClick={() => this.props.onClickAnimationChange?.("Walk")} />
-                <AnimationInfoElementDisplay animationInfo={this.waitAnimationInfo} onChangeClick={() => this.props.onClickAnimationChange?.("Wait")} />
+                <ElementDisplay elementInfo={this.walkAnimationInfo} onChangeClick={() => this.props.onClickElementChange?.("Walk")} />
+                <ElementDisplay elementInfo={this.waitAnimationInfo} onChangeClick={() => this.props.onClickElementChange?.("Wait")} />
             </Grid>
             <br />
             <Grid container spacing={2}>

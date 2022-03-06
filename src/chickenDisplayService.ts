@@ -1,7 +1,5 @@
-import { AnimationInfoType, SpriteInfoType } from './restRequestsService';
 import chickenJson from './Assets/UnityExport/chicken.json';
-import { spritesImages, spritesJsons } from './Assets/UnityExport/sprites';
-import { animationGifs, animationsJsons } from './Assets/UnityExport/animations';
+import { ElementInfoType, elementsImages, elementsJsons } from './Assets/UnityExport/chickenElements';
 
 /*
     Files are in src and not in public to be usable in production + it is good practice:
@@ -17,34 +15,20 @@ export interface IChickenDisplayInfo {
     MouthPosition: [number, number];
     EyePosition: [number, number];
 
-    WaitAnimationsMapping: string[];
-    WalkAnimationsMapping: string[];
-    ArmMapping: string[];
-    HairMapping: string[];
-    MouthMapping: string[];
-    EyeMapping: string[];
-
-    UnlockedByDefaults: { [key: string]: number[] }
+    Mapping: { [key:string]: string[] };
+    UnlockedByDefault: { [key: string]: number[] };
+    ChickenElementKinds: string[];
 }
 
-export interface IAnimationInfo {
-    RequireKey: string;
-    Index: number;
-    Name: string;
-    FriendlyName: string;
-    Description: string;
-    Gif: string;
-}
-
-export interface ISpriteInfo {
+export type ElementInfo = {
     RequireKey: string;
     Index: number;
     Name: string;
     FriendlyName: string;
     Description: string;
     Image: string;
-    Size: [number, number];
-    Pivot: [number, number];
+    Size: [number, number] | null;
+    Pivot: [number, number] | null;
 }
 
 export class ChickenDisplayServiceClass {
@@ -58,48 +42,21 @@ export class ChickenDisplayServiceClass {
 
     private _initialized: boolean = false;
     private _chickenDisplayInfo: IChickenDisplayInfo | undefined;
-    private _armsInfo: ISpriteInfo[] | undefined;
-    private _hairsInfo: ISpriteInfo[] | undefined;
-    private _eyesInfo: ISpriteInfo[] | undefined;
-    private _mouthsInfo: ISpriteInfo[] | undefined;
-    private _walkAnimationInfo: IAnimationInfo[] | undefined;
-    private _waitAnimationInfo: IAnimationInfo[] | undefined;
+    private _elementsInfo: { [key:string]: ElementInfo[] } | undefined;
 
     public async initializeAsync() {
         this._chickenDisplayInfo = chickenJson as unknown as IChickenDisplayInfo; // compiled doesn't like [number, number] :(, so have to cast to unknown first.
 
-        // TODO Could change the exporter to automatically create that structure instead of writting jsons
-        // TODO Could change the exporter to declare the spriteTypes, animationTypes and IpPriteInfo / IAnimationInfo
-        /* Sprites */
-        this._armsInfo = [];
-        for (let armName of this._chickenDisplayInfo!.ArmMapping) {
-            this._armsInfo.push(spritesJsons[`Arms.${armName}`]);
-        }
-
-        this._hairsInfo = [];
-        for (let hairName of this._chickenDisplayInfo!.HairMapping) {
-            this._hairsInfo.push(spritesJsons[`Hairs.${hairName}`]);
-        }
-
-        this._eyesInfo = [];
-        for (let eyeName of this._chickenDisplayInfo!.EyeMapping) {
-            this._eyesInfo.push(spritesJsons[`Eyes.${eyeName}`]);
-        }
-
-        this._mouthsInfo = [];
-        for (let mouthName of this._chickenDisplayInfo!.MouthMapping) {
-            this._mouthsInfo.push(spritesJsons[`Mouths.${mouthName}`]);
-        }
-
-        /* Animations */
-        this._waitAnimationInfo = [];
-        for (let waitName of this._chickenDisplayInfo!.WaitAnimationsMapping) {
-            this._waitAnimationInfo.push(animationsJsons[`WaitAnimations.${waitName}`]);
-        }
-
-        this._walkAnimationInfo = [];
-        for (let walkName of this._chickenDisplayInfo!.WalkAnimationsMapping) {
-            this._walkAnimationInfo.push(animationsJsons[`WalkAnimations.${walkName}`]);
+        /* Elements */
+        this._elementsInfo = {};
+        for (let key of this._chickenDisplayInfo.ChickenElementKinds)
+        {
+            this._elementsInfo[key] = [];
+            for (let elementName of this._chickenDisplayInfo.Mapping[key])
+            {
+                let elementInfo:ElementInfo = elementsJsons[`${key}.${elementName}`];
+                this._elementsInfo[key].push(elementInfo);
+            }
         }
 
         /**/
@@ -120,102 +77,82 @@ export class ChickenDisplayServiceClass {
         return this._chickenDisplayInfo!;
     }
 
-    public getArmInfo(index: number): ISpriteInfo {
+    public getElementInfo(elementType: ElementInfoType, index: number): ElementInfo {
         this.checkIsInitialized();
-        return this._armsInfo![index];
+        return this._elementsInfo![elementType][index];
     }
 
-    public getEyeInfo(index: number): ISpriteInfo {
-        this.checkIsInitialized();
-        return this._eyesInfo![index];
+    public getArmInfo(index: number): ElementInfo {
+        return this.getElementInfo("Arm", index);
     }
 
-    public getMouthInfo(index: number): ISpriteInfo {
-        this.checkIsInitialized();
-        return this._mouthsInfo![index];
+    public getEyeInfo(index: number): ElementInfo {
+        return this.getElementInfo("Eye", index);
     }
 
-    public getHairInfo(index: number): ISpriteInfo {
-        this.checkIsInitialized();
-        return this._hairsInfo![index];
+    public getMouthInfo(index: number): ElementInfo {
+        return this.getElementInfo("Mouth", index);
     }
 
-    public getWalkAnimationInfo(index: number): IAnimationInfo {
-        this.checkIsInitialized();
-        return this._walkAnimationInfo![index];
+    public getHairInfo(index: number): ElementInfo {
+        return this.getElementInfo("Hair", index);
     }
 
-    public getWaitAnimationInfo(index: number): IAnimationInfo {
-        this.checkIsInitialized();
-        return this._waitAnimationInfo![index];
+    public getWalkAnimationInfo(index: number): ElementInfo {
+        return this.getElementInfo("Walk", index);
+    }
+
+    public getWaitAnimationInfo(index: number): ElementInfo {
+        return this.getElementInfo("Wait", index);
+    }
+
+    public getElementImage(elementType: ElementInfoType, index: number): any {
+        return elementsImages[this.getElementInfo(elementType, index).RequireKey];
     }
 
     public getArmImage(index: number): any {
+        return this.getElementImage("Arm", index);
+    }
+
+    public getEyeImage(index: number): any {
+        return this.getElementImage("Eye", index);
+    }
+
+    public getMouthImage(index: number): any {
+        return this.getElementImage("Mouth", index);
+    }
+
+    public getHairImage(index: number): any {
+        return this.getElementImage("Hair", index);
+    }
+
+    public getWalkAnimationImage(index: number): any {
+        return this.getElementImage("Walk", index);
+    }
+
+    public getWaitAnimationImage(index: number): any {
+        return this.getElementImage("Wait", index);
+    }
+
+    public getElementsInfo(spriteType: ElementInfoType): ElementInfo[] {
         this.checkIsInitialized();
-        return spritesImages[this._armsInfo![index].RequireKey];
-    }
-
-    public getEyeImage(index: number): ISpriteInfo {
-        this.checkIsInitialized();
-        return spritesImages[this._eyesInfo![index].RequireKey];
-    }
-
-    public getMouthImage(index: number): ISpriteInfo {
-        this.checkIsInitialized();
-        return spritesImages[this._mouthsInfo![index].RequireKey];
-    }
-
-    public getHairImage(index: number): ISpriteInfo {
-        this.checkIsInitialized();
-        return spritesImages[this._hairsInfo![index].RequireKey];
-    }
-
-    public getWalkAnimationImage(index: number): IAnimationInfo {
-        this.checkIsInitialized();
-        return animationGifs[this._walkAnimationInfo![index].RequireKey];
-    }
-
-    public getWaitAnimationImage(index: number): IAnimationInfo {
-        this.checkIsInitialized();
-        return animationGifs[this._waitAnimationInfo![index].RequireKey];
-    }
-
-    public getSpritesInfo(spriteType: SpriteInfoType): ISpriteInfo[] {
-        switch (spriteType) {
-            case "Arm": return this.armsInfo;
-            case "Eye": return this.eyesInfo;
-            case "Hair": return this.hairsInfo;
-            case "Mouth": return this.mouthsInfo;
-            default: throw new Error("Not implemented");
-        }
-    }
-
-    public getAnimationsInfo(animationType: AnimationInfoType): IAnimationInfo[] {
-        switch (animationType) {
-            case "Walk": return this.walkAnimationInfo;
-            case "Wait": return this.waitAnimationInfo;
-            default: throw new Error("Not implemented");
-        }
+        return this._elementsInfo![spriteType];
     }
 
     private isUnlockedByDefault(key: string, index: number): boolean {
-        return this._chickenDisplayInfo?.UnlockedByDefaults[key].find(i => i === index) !== undefined;
+        return this._chickenDisplayInfo?.UnlockedByDefault[key].find(i => i === index) !== undefined;
     }
 
-    public isSpriteUnlockedByDefault(spriteType: SpriteInfoType, index: number): boolean {
-        return this.isUnlockedByDefault(spriteType, index);
+    public isElementUnlockedByDefault(elementInfoType: ElementInfoType, index: number): boolean {
+        return this.isUnlockedByDefault(elementInfoType, index);
     }
 
-    public isAnimationUnlockedByDefault(animationType: AnimationInfoType, index: number): boolean {
-        return this.isUnlockedByDefault(animationType, index);
-    }
-
-    public get eyesInfo(): ISpriteInfo[] { return this._eyesInfo!; }
-    public get hairsInfo(): ISpriteInfo[] { return this._hairsInfo!; }
-    public get mouthsInfo(): ISpriteInfo[] { return this._mouthsInfo!; }
-    public get armsInfo(): ISpriteInfo[] { return this._armsInfo!; }
-    public get walkAnimationInfo(): IAnimationInfo[] { return this._walkAnimationInfo!; }
-    public get waitAnimationInfo(): IAnimationInfo[] { return this._waitAnimationInfo!; }
+    public get eyesInfo(): ElementInfo[] { return this.getElementsInfo("Eye"); }
+    public get hairsInfo(): ElementInfo[] { return this.getElementsInfo("Hair"); }
+    public get mouthsInfo(): ElementInfo[] { return this.getElementsInfo("Mouth"); }
+    public get armsInfo(): ElementInfo[] { return this.getElementsInfo("Arm"); }
+    public get walkAnimationInfo(): ElementInfo[] { return this.getElementsInfo("Walk"); }
+    public get waitAnimationInfo(): ElementInfo[] { return this.getElementsInfo("Wait"); }
 }
 
 export const ChickenDisplayService = ChickenDisplayServiceClass.getInstanceAsync();

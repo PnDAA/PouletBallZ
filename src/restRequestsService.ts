@@ -1,3 +1,4 @@
+import { ElementInfoType } from './Assets/UnityExport/chickenElements';
 import AuthenticationService from './authenticationService';
 import { rgbToHex } from './colorUtils';
 import { EnvironmentInfo } from './environmentInfo';
@@ -28,8 +29,6 @@ export interface Chicken {
     /* other fields are not necessary for now */
 }
 
-export type SpriteInfoType = "Eye" | "Arm" | "Hair" | "Mouth";
-export type AnimationInfoType = "Walk" | "Wait";
 export type ColorType = "Primary" | "Secondary";
 
 class RestRequestsServiceClass {
@@ -80,35 +79,22 @@ class RestRequestsServiceClass {
         return this._chicken!;
     }
 
-    public setSpriteAsync(spriteType: SpriteInfoType, index: number): Promise<Response> {
+    public setElementAsync(elementInfoType: ElementInfoType, index: number): Promise<Response> {
         // Update local object
-        switch (spriteType) {
+        switch (elementInfoType) {
             case "Arm": this._chicken!.Arm = index; break;
             case "Hair": this._chicken!.Hair = index; break;
             case "Eye": this._chicken!.Eye = index; break;
             case "Mouth": this._chicken!.Mouth = index; break;
-            default: throw new Error("Not implemented");
-        }
-
-        // Update database
-        return this.sendRequest("SetSprite", {
-            method: "POST",
-            body: JSON.stringify({ index: index, type: spriteType }),
-        });
-    }
-
-    public setAnimationAsync(animationType: AnimationInfoType, index: number): Promise<Response> {
-        // Update local object
-        switch (animationType) {
             case "Wait": this._chicken!.WaitAnimation = index; break;
             case "Walk": this._chicken!.WalkAnimation = index; break;
             default: throw new Error("Not implemented");
         }
 
         // Update database
-        return this.sendRequest("SetAnimation", {
+        return this.sendRequest("SetElement", {
             method: "POST",
-            body: JSON.stringify({ index: index, type: animationType }),
+            body: JSON.stringify({ index: index, type: elementInfoType }),
         });
     }
 
@@ -154,12 +140,8 @@ class RestRequestsServiceClass {
         return typeUnlocked;
     }
 
-    public getUnlockedSprites(spriteInfoType:SpriteInfoType):UnlockedElementInfo[] {
-        return this.getUnlockedItem(spriteInfoType);
-    }
-
-    public getUnlockedAnimations(animationInfoType:AnimationInfoType):UnlockedElementInfo[] {
-        return this.getUnlockedItem(animationInfoType);
+    public getUnlockedElements(elementInfoType:ElementInfoType):UnlockedElementInfo[] {
+        return this.getUnlockedItem(elementInfoType);
     }
 
     private isUnlocked(key:string, index:number): boolean {
@@ -167,12 +149,8 @@ class RestRequestsServiceClass {
         return unlockedElements.find(u => u.Value === index) !== undefined;
     }
 
-    public isSpriteUnlocked(spriteInfoType:SpriteInfoType, index:number):boolean {
-        return this.isUnlocked(spriteInfoType, index);
-    }
-    
-    public isAnimationUnlocked(animationInfoType:AnimationInfoType, index:number):boolean {
-        return this.isUnlocked(animationInfoType, index);
+    public isElementUnlocked(elementInfoType:ElementInfoType, index:number):boolean {
+        return this.isUnlocked(elementInfoType, index);
     }
 }
 

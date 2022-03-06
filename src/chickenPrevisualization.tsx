@@ -1,9 +1,9 @@
 import React from "react";
 import "./utils.css";
 import Vector2D from './vector2D';
-import { spritesImages } from './Assets/UnityExport/sprites';
-import { ChickenDisplayService, IChickenDisplayInfo, ISpriteInfo } from "./chickenDisplayService";
+import { ChickenDisplayService, ElementInfo, IChickenDisplayInfo } from "./chickenDisplayService";
 import { RestRequestsService } from "./restRequestsService";
+import { elementsImages } from "./Assets/UnityExport/chickenElements";
 
 export default class ChickenPrevisualization extends React.Component {
     canvasElement: HTMLCanvasElement | undefined;
@@ -66,9 +66,9 @@ export default class ChickenPrevisualization extends React.Component {
         spriteContext.restore();
     }
 
-    private async drawElementAsync(bodyPosition: Vector2D, spriteInfo: ISpriteInfo, elementPosition: [number, number], color?: string): Promise<void> {
+    private async drawElementAsync(bodyPosition: Vector2D, elementInfo: ElementInfo, elementPosition: [number, number], color?: string): Promise<void> {
         // Pivot is specified from bottom left (y reversed). So we need to remove the sprite height.
-        let realPivot = new Vector2D(-spriteInfo.Pivot[0], spriteInfo.Pivot[1] - spriteInfo.Size[1]);
+        let realPivot = new Vector2D(-elementInfo.Pivot![0], elementInfo.Pivot![1] - elementInfo.Size![1]);
         let pivot = Vector2D.add(bodyPosition, realPivot);
 
         // Remove x cause prefab is flipped
@@ -76,7 +76,7 @@ export default class ChickenPrevisualization extends React.Component {
         // *ratio to change coordinate from unity game coordinate to image
         let ratio: number = 57;
         let elementImagePosition = Vector2D.add(pivot, new Vector2D(-elementPosition[0] * ratio, -elementPosition[1] * ratio))
-        await this.drawImageInCanvasWithColorAsync(spritesImages[spriteInfo.RequireKey], elementImagePosition, color);
+        await this.drawImageInCanvasWithColorAsync(elementsImages[elementInfo.RequireKey], elementImagePosition, color);
     }
 
     public async DrawAsync() {
