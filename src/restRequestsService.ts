@@ -9,7 +9,7 @@ export type Color = {
     b: number
 };
 
-export type UnlockElementInfo = {
+export type UnlockedElementInfo = {
     Value: number,
     Reason: string,
     UnlockedDate: number
@@ -24,7 +24,7 @@ export interface Chicken {
     WalkAnimation: number;
     PrimaryColor: Color;
     SecondaryColor: Color;
-    UnlockedElements: { [type: string]: UnlockElementInfo };
+    UnlockedElements: { [type: string]: UnlockedElementInfo[] } | undefined;
     /* other fields are not necessary for now */
 }
 
@@ -142,6 +142,37 @@ class RestRequestsServiceClass {
             method: "POST",
             body: JSON.stringify({ color: color, type: colorType }),
         });
+    }
+
+    private getUnlockedItem(key:string):UnlockedElementInfo[] {
+        let unlockedElements:{[type:string]:UnlockedElementInfo[]} | undefined = this.getChicken().UnlockedElements;
+        if (unlockedElements === undefined)
+            return [];
+        let typeUnlocked:UnlockedElementInfo[] | undefined = unlockedElements[key];
+        if (typeUnlocked === undefined)
+            return [];
+        return typeUnlocked;
+    }
+
+    public getUnlockedSprites(spriteInfoType:SpriteInfoType):UnlockedElementInfo[] {
+        return this.getUnlockedItem(spriteInfoType);
+    }
+
+    public getUnlockedAnimations(animationInfoType:AnimationInfoType):UnlockedElementInfo[] {
+        return this.getUnlockedItem(animationInfoType);
+    }
+
+    private isUnlocked(key:string, index:number): boolean {
+        let unlockedElements:UnlockedElementInfo[] = this.getUnlockedItem(key);
+        return unlockedElements.find(u => u.Value === index) !== undefined;
+    }
+
+    public isSpriteUnlocked(spriteInfoType:SpriteInfoType, index:number):boolean {
+        return this.isUnlocked(spriteInfoType, index);
+    }
+    
+    public isAnimationUnlocked(animationInfoType:AnimationInfoType, index:number):boolean {
+        return this.isUnlocked(animationInfoType, index);
     }
 }
 

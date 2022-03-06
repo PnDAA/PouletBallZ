@@ -6,6 +6,7 @@ import ElementDisplay from "./elementDisplay";
 type AnimationInfoElementDisplayProps = {
     animationInfo: IAnimationInfo;
     onChangeClick?: () => void;
+    enabled?: boolean;
 }
 
 export default class AnimationInfoElementDisplay extends React.Component<AnimationInfoElementDisplayProps> {
@@ -16,6 +17,7 @@ export default class AnimationInfoElementDisplay extends React.Component<Animati
             description={this.props.animationInfo.Description}
             onChangeClick={this.props.onChangeClick}
             imageHeight={150}
+            enabled={this.props.enabled}
         />
     }
 }

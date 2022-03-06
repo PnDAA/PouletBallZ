@@ -24,18 +24,11 @@ export interface IChickenDisplayInfo {
     MouthMapping: string[];
     EyeMapping: string[];
 
-    UnlockedByDefaults: {
-        Arm: number[],
-        Eye: number[],
-        Hair: number[],
-        Mouth: number[],
-        Wait: number[],
-        Walk: number[]
-    }
+    UnlockedByDefaults: { [key: string]: number[] }
 }
 
 export interface IAnimationInfo {
-    RequireKey:string;
+    RequireKey: string;
     Index: number;
     Name: string;
     FriendlyName: string;
@@ -44,7 +37,7 @@ export interface IAnimationInfo {
 }
 
 export interface ISpriteInfo {
-    RequireKey:string;
+    RequireKey: string;
     Index: number;
     Name: string;
     FriendlyName: string;
@@ -73,7 +66,7 @@ export class ChickenDisplayServiceClass {
     private _waitAnimationInfo: IAnimationInfo[] | undefined;
 
     public async initializeAsync() {
-        this._chickenDisplayInfo = chickenJson as IChickenDisplayInfo;
+        this._chickenDisplayInfo = chickenJson as unknown as IChickenDisplayInfo; // compiled doesn't like [number, number] :(, so have to cast to unknown first.
 
         // TODO Could change the exporter to automatically create that structure instead of writting jsons
         // TODO Could change the exporter to declare the spriteTypes, animationTypes and IpPriteInfo / IAnimationInfo
@@ -189,20 +182,32 @@ export class ChickenDisplayServiceClass {
 
     public getSpritesInfo(spriteType: SpriteInfoType): ISpriteInfo[] {
         switch (spriteType) {
-            case "Arm": return ChickenDisplayService.armsInfo;
-            case "Eye": return ChickenDisplayService.eyesInfo;
-            case "Hair": return ChickenDisplayService.hairsInfo;
-            case "Mouth": return ChickenDisplayService.mouthsInfo;
+            case "Arm": return this.armsInfo;
+            case "Eye": return this.eyesInfo;
+            case "Hair": return this.hairsInfo;
+            case "Mouth": return this.mouthsInfo;
             default: throw new Error("Not implemented");
         }
     }
 
     public getAnimationsInfo(animationType: AnimationInfoType): IAnimationInfo[] {
         switch (animationType) {
-            case "Walk": return ChickenDisplayService.walkAnimationInfo;
-            case "Wait": return ChickenDisplayService.waitAnimationInfo;
+            case "Walk": return this.walkAnimationInfo;
+            case "Wait": return this.waitAnimationInfo;
             default: throw new Error("Not implemented");
         }
+    }
+
+    private isUnlockedByDefault(key: string, index: number): boolean {
+        return this._chickenDisplayInfo?.UnlockedByDefaults[key].find(i => i === index) !== undefined;
+    }
+
+    public isSpriteUnlockedByDefault(spriteType: SpriteInfoType, index: number): boolean {
+        return this.isUnlockedByDefault(spriteType, index);
+    }
+
+    public isAnimationUnlockedByDefault(animationType: AnimationInfoType, index: number): boolean {
+        return this.isUnlockedByDefault(animationType, index);
     }
 
     public get eyesInfo(): ISpriteInfo[] { return this._eyesInfo!; }
