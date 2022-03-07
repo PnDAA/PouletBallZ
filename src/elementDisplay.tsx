@@ -1,6 +1,7 @@
 import { Card, CardActionArea, CardContent, Grid, Typography } from "@mui/material";
 import React from "react";
 import { elementsImages } from "./Assets/UnityExport/chickenElements";
+import CardElementParticles from "./cardElementParticles";
 import { ElementInfo, RarityLevel } from "./chickenDisplayService";
 
 type ElementDisplayProps = {
@@ -24,7 +25,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
         return this.props.elementInfo.Pivot === null ? 150 : 50;
     }
 
-    public getRarityColor(opacity:number): string {
+    public getRarityColor(opacity: number): string {
         switch (this.props.elementInfo.Rarity) {
             case RarityLevel.Junk:
                 return `rgba(0, 0, 0, ${opacity})`;
@@ -38,7 +39,35 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
         return "";
     }
 
-    public getCardColor(opacity:number): string {
+    public getLinkRange(): number {
+        switch (this.props.elementInfo.Rarity) {
+            case RarityLevel.Junk:
+                return 0;
+            case RarityLevel.Normal:
+                return 50;
+            case RarityLevel.Rare:
+                return 100;
+            case RarityLevel.Legendary:
+                return 150;
+        }
+        return 0;
+    }
+
+    public getShape(): string {
+        switch (this.props.elementInfo.Rarity) {
+            case RarityLevel.Junk:
+                return "circle";
+            case RarityLevel.Normal:
+                return "square";
+            case RarityLevel.Rare:
+                return "triangle";
+            case RarityLevel.Legendary:
+                return "star";
+        }
+        return "square";
+    }
+
+    public getCardColor(opacity: number): string {
         if (this.isEnabled) {
             return this.getRarityColor(opacity);
         } else {
@@ -51,7 +80,25 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
             <Card style={{
                 backgroundColor: this.getCardColor(0.2),
                 opacity: this.isEnabled ? 1.0 : 0.4,
+                position: "relative"
             }}>
+                {
+                    this.isEnabled && <CardElementParticles
+                        id={this.props.elementInfo.RequireKey}
+                        backgroundColor={this.getCardColor(1)}
+                        opacity={0.2}
+                        shape={this.getShape()}
+                        linkRange={this.getLinkRange()}
+                        style={{
+                            position: "absolute",
+                            left: "0px",
+                            top: "0px",
+                            right: "0px",
+                            bottom: "0px"
+                        }}
+                    />
+                }
+
                 <CardActionArea onClick={() => this.onClick()} disabled={!this.isEnabled}>
                     <div className="center">
                         <img
@@ -63,7 +110,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
                         />
                     </div>
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div" style={{color: this.getCardColor(1.0)}}>
+                        <Typography gutterBottom variant="h5" component="div" style={{ color: this.getCardColor(1.0) }}>
                             {this.props.elementInfo.FriendlyName}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
