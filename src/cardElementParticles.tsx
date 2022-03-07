@@ -8,6 +8,7 @@ type CardElementParticlesProps = {
     opacity: number;
     shape: string;
     linkRange: number;
+    count: number;
 }
 
 export default class CardElementParticles extends React.Component<CardElementParticlesProps> {
@@ -56,7 +57,7 @@ export default class CardElementParticles extends React.Component<CardElementPar
                                 enable: true,
                                 area: 800,
                             },
-                            value: 80,
+                            value: this.props.count,
                         },
                         opacity: {
                             value: 0.5,

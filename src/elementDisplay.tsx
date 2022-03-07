@@ -39,7 +39,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
         return "";
     }
 
-    public getLinkRange(): number {
+    public getParticleLinkRange(): number {
         switch (this.props.elementInfo.Rarity) {
             case RarityLevel.Junk:
                 return 0;
@@ -53,7 +53,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
         return 0;
     }
 
-    public getShape(): string {
+    public getParticleShape(): string {
         switch (this.props.elementInfo.Rarity) {
             case RarityLevel.Junk:
                 return "circle";
@@ -65,6 +65,20 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
                 return "star";
         }
         return "square";
+    }
+
+    public getParticleCount(): number {
+        switch (this.props.elementInfo.Rarity) {
+            case RarityLevel.Junk:
+                return 10;
+            case RarityLevel.Normal:
+                return 80;
+            case RarityLevel.Rare:
+                return 100;
+            case RarityLevel.Legendary:
+                return 130;
+        }
+        return 10;
     }
 
     public getCardColor(opacity: number): string {
@@ -87,8 +101,9 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
                         id={this.props.elementInfo.RequireKey}
                         backgroundColor={this.getCardColor(1)}
                         opacity={0.2}
-                        shape={this.getShape()}
-                        linkRange={this.getLinkRange()}
+                        shape={this.getParticleShape()}
+                        linkRange={this.getParticleLinkRange()}
+                        count={this.getParticleCount()}
                         style={{
                             position: "absolute",
                             left: "0px",
