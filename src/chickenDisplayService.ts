@@ -20,12 +20,22 @@ export interface IChickenDisplayInfo {
     ChickenElementKinds: string[];
 }
 
+export enum RarityLevel
+{
+    Junk,
+    Normal,
+    Rare,
+    Legendary,
+}
+
 export type ElementInfo = {
     RequireKey: string;
     Index: number;
     Name: string;
     FriendlyName: string;
     Description: string;
+    HowToUnlock: string,
+    Rarity: RarityLevel,
     Image: string;
     Size: [number, number] | null;
     Pivot: [number, number] | null;
