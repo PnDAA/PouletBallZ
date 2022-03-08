@@ -106,7 +106,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
     }
 
     public get isParticleActivated(): boolean {
-        return this.isEnabled && this.props.elementInfo.Rarity != RarityLevel.Junk;
+        return this.isEnabled && this.props.elementInfo.Rarity !== RarityLevel.Junk;
     }
 
     render() {
