@@ -151,7 +151,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
                             {this.props.elementInfo.Description}
-                            {!this.isEnabled && <><br /><br /><i>{this.props.elementInfo.HowToUnlock}</i></>}
+                            {!this.isEnabled && <><br /><br /><i>Unlock: {this.props.elementInfo.HowToUnlock}</i></>}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
