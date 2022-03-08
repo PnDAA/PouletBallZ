@@ -28,7 +28,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
     public getRarityColor(opacity: number): string {
         switch (this.props.elementInfo.Rarity) {
             case RarityLevel.Junk:
-                return `rgba(0, 0, 0, ${opacity})`;
+                return `rgba(255, 255, 255, ${opacity})`;
             case RarityLevel.Normal:
                 return `rgba(0, 255, 0, ${opacity})`;
             case RarityLevel.Rare:
@@ -37,6 +37,22 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
                 return `rgba(255, 127, 0, ${opacity})`;
         }
         return "";
+    }
+
+    public getTextColor(): string {
+        switch (this.props.elementInfo.Rarity) {
+            case RarityLevel.Junk:
+                return `rgb(0, 0, 0)`;
+        }
+        return this.getRarityColor(1);
+    }
+
+    public getParticleColor(opacity:number): string {
+        switch (this.props.elementInfo.Rarity) {
+            case RarityLevel.Junk:
+                return `rgba(0, 0, 0, ${opacity})`;
+        }
+        return this.getRarityColor(opacity);
     }
 
     public getParticleLinkRange(): number {
@@ -89,6 +105,10 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
         }
     }
 
+    public get isParticleActivated(): boolean {
+        return this.isEnabled && this.props.elementInfo.Rarity != RarityLevel.Junk;
+    }
+
     render() {
         return <Grid item xs={4}>
             <Card style={{
@@ -97,9 +117,10 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
                 position: "relative"
             }}>
                 {
-                    this.isEnabled && <CardElementParticles
+                    this.isParticleActivated && <CardElementParticles
                         id={this.props.elementInfo.RequireKey}
                         backgroundColor={this.getCardColor(1)}
+                        particleColor={this.getParticleColor(1)}
                         opacity={0.2}
                         shape={this.getParticleShape()}
                         linkRange={this.getParticleLinkRange()}
@@ -125,7 +146,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
                         />
                     </div>
                     <CardContent>
-                        <Typography gutterBottom variant="h5" component="div" style={{ color: this.getCardColor(1.0) }}>
+                        <Typography gutterBottom variant="h5" component="div" style={{ color: this.getTextColor() }}>
                             {this.props.elementInfo.FriendlyName}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">

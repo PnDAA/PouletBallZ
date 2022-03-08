@@ -5,6 +5,7 @@ type CardElementParticlesProps = {
     id: string;
     style: CSSProperties | undefined;
     backgroundColor: string;
+    particleColor: string;
     opacity: number;
     shape: string;
     linkRange: number;
@@ -32,10 +33,10 @@ export default class CardElementParticles extends React.Component<CardElementPar
                     },
                     particles: {
                         color: {
-                            value: this.props.backgroundColor,
+                            value: this.props.particleColor,
                         },
                         links: {
-                            color: this.props.backgroundColor,
+                            color: this.props.particleColor,
                             distance: this.props.linkRange,
                             enable: true,
                             opacity: 0.5,
