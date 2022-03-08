@@ -28,6 +28,13 @@ export enum RarityLevel
     Legendary,
 }
 
+export enum ElementColor
+{
+    Primary,
+    Secondary,
+    None,
+}
+
 export type ElementInfo = {
     RequireKey: string;
     Index: number;
@@ -36,6 +43,7 @@ export type ElementInfo = {
     Description: string;
     HowToUnlock: string,
     Rarity: RarityLevel,
+    Color: ElementColor,
     Image: string;
     Size: [number, number] | null;
     Pivot: [number, number] | null;

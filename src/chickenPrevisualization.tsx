@@ -1,7 +1,7 @@
 import React from "react";
 import "./utils.css";
 import Vector2D from './vector2D';
-import { ChickenDisplayService, ElementInfo, IChickenDisplayInfo } from "./chickenDisplayService";
+import { ChickenDisplayService, ElementColor, ElementInfo, IChickenDisplayInfo } from "./chickenDisplayService";
 import { RestRequestsService } from "./restRequestsService";
 import { elementsImages } from "./Assets/UnityExport/chickenElements";
 
@@ -66,7 +66,7 @@ export default class ChickenPrevisualization extends React.Component {
         spriteContext.restore();
     }
 
-    private async drawElementAsync(bodyPosition: Vector2D, elementInfo: ElementInfo, elementPosition: [number, number], color?: string): Promise<void> {
+    private async drawElementAsync(bodyPosition: Vector2D, elementInfo: ElementInfo, elementPosition: [number, number]): Promise<void> {
         // Pivot is specified from bottom left (y reversed). So we need to remove the sprite height.
         let realPivot = new Vector2D(-elementInfo.Pivot![0], elementInfo.Pivot![1] - elementInfo.Size![1]);
         let pivot = Vector2D.add(bodyPosition, realPivot);
@@ -76,12 +76,26 @@ export default class ChickenPrevisualization extends React.Component {
         // *ratio to change coordinate from unity game coordinate to image
         let ratio: number = 57;
         let elementImagePosition = Vector2D.add(pivot, new Vector2D(-elementPosition[0] * ratio, -elementPosition[1] * ratio))
+
+        // Get color
+        let color:string | undefined = undefined;
+        switch (elementInfo.Color)
+        {
+            case ElementColor.None:
+                color = undefined;
+                break;
+            case ElementColor.Primary:
+                color = RestRequestsService.getHexColorAsync("Primary");
+                break;
+            case ElementColor.Secondary:
+                color = RestRequestsService.getHexColorAsync("Secondary");
+                break;
+        }
         await this.drawImageInCanvasWithColorAsync(elementsImages[elementInfo.RequireKey], elementImagePosition, color);
     }
 
     public async DrawAsync() {
         let primaryColor: string = RestRequestsService.getHexColorAsync("Primary");
-        let secondaryColor: string = RestRequestsService.getHexColorAsync("Secondary");
 
         let context: CanvasRenderingContext2D = this.canvasElement!.getContext("2d")!;
 
@@ -104,8 +118,8 @@ export default class ChickenPrevisualization extends React.Component {
 
         let chicken = RestRequestsService.getChicken();
         await this.drawElementAsync(bodyPosition, ChickenDisplayService.getEyeInfo(chicken.Eye), cdi.EyePosition);
-        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getArmInfo(chicken.Arm), cdi.ArmPosition, secondaryColor);
-        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getHairInfo(chicken.Hair), cdi.HairPosition, secondaryColor);
+        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getArmInfo(chicken.Arm), cdi.ArmPosition);
+        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getHairInfo(chicken.Hair), cdi.HairPosition);
         await this.drawElementAsync(bodyPosition, ChickenDisplayService.getMouthInfo(chicken.Mouth), cdi.MouthPosition);
     }
 
