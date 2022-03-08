@@ -1,1 +1,1 @@
-{"RequireKey":"Eye.Wolf","Index":7,"Name":"Wolf","FriendlyName":"Loup","Description":"Woof ?","HowToUnlock":"Default","Rarity":0,"Image":"Wolf.png","Size":[82,22],"Pivot":[45.4935722,6.497556],"Color":2}
+{"RequireKey":"Eye.Wolf","Index":7,"Name":"Wolf","FriendlyName":"Loup","Description":"Woof ?","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Eye.Wolf","Path":"Wolf.png","Name":"Wolf.png","Size":[82,22],"Pivot":[45.4935722,6.497556]}]}

@@ -10,7 +10,8 @@ import { ElementInfoType, elementsImages, elementsJsons } from './Assets/UnityEx
 export interface IChickenDisplayInfo {
     BodyPosition: [number, number];
     BodyPivot: [number, number];
-    ArmPosition: [number, number];
+    LeftArmPosition: [number, number];
+    RightArmPosition: [number, number];
     HairPosition: [number, number];
     MouthPosition: [number, number];
     EyePosition: [number, number];
@@ -35,6 +36,14 @@ export enum ElementColor
     None,
 }
 
+export type ImageInfo = {
+    RequireKey:string;
+    Path:string;
+    Name:string;
+    Size:number[] | null;
+    Pivot:number[] | null;
+}
+
 export type ElementInfo = {
     RequireKey: string;
     Index: number;
@@ -44,9 +53,7 @@ export type ElementInfo = {
     HowToUnlock: string,
     Rarity: RarityLevel,
     Color: ElementColor,
-    Image: string;
-    Size: [number, number] | null;
-    Pivot: [number, number] | null;
+    Images: ImageInfo[]
 }
 
 export class ChickenDisplayServiceClass {
@@ -125,7 +132,7 @@ export class ChickenDisplayServiceClass {
     }
 
     public getElementImage(elementType: ElementInfoType, index: number): any {
-        return elementsImages[this.getElementInfo(elementType, index).RequireKey];
+        return elementsImages[this.getElementInfo(elementType, index).Images[0].RequireKey];
     }
 
     public getArmImage(index: number): any {

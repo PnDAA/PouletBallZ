@@ -1,1 +1,1 @@
-{"RequireKey":"Mouth.Basic","Index":1,"Name":"Basic","FriendlyName":"Basique","Description":"Rien de spécial.","HowToUnlock":"Default","Rarity":0,"Image":"Basic.png","Size":[83,54],"Pivot":[65.23164,37.52662],"Color":2}
+{"RequireKey":"Mouth.Basic","Index":1,"Name":"Basic","FriendlyName":"Basique","Description":"Rien de spécial.","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Mouth.Basic","Path":"Basic.png","Name":"Basic.png","Size":[83,54],"Pivot":[65.23164,37.52662]}]}

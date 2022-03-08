@@ -1,1 +1,1 @@
-{"RequireKey":"Walk.Jump","Index":2,"Name":"Jump","FriendlyName":"Saut","Description":"Pourquoi ?","HowToUnlock":"Default","Rarity":0,"Image":"Jump.gif","Size":null,"Pivot":null,"Color":2}
+{"RequireKey":"Walk.Jump","Index":2,"Name":"Jump","FriendlyName":"Saut","Description":"Pourquoi ?","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Walk.Jump","Path":"Jump.gif","Name":"Jump.gif","Size":null,"Pivot":null}]}

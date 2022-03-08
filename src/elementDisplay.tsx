@@ -22,7 +22,7 @@ export default class ElementDisplay extends React.Component<ElementDisplayProps>
 
     public get imageHeight(): number {
         // for animation we want taller images.
-        return this.props.elementInfo.Pivot === null ? 150 : 50;
+        return this.props.elementInfo.Images[0].Name.endsWith(".gif") ? 150 : 50;
     }
 
     public getRarityColor(opacity: number): string {

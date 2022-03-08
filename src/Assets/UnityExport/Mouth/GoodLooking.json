@@ -1,1 +1,1 @@
-{"RequireKey":"Mouth.GoodLooking","Index":2,"Name":"GoodLooking","FriendlyName":"Langue","Description":"Ne te mords pas la langue !","HowToUnlock":"Default","Rarity":0,"Image":"GoodLooking.png","Size":[81,62],"Pivot":[60.44079,47.6565742],"Color":2}
+{"RequireKey":"Mouth.GoodLooking","Index":2,"Name":"GoodLooking","FriendlyName":"Langue","Description":"Ne te mords pas la langue !","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Mouth.GoodLooking","Path":"GoodLooking.png","Name":"GoodLooking.png","Size":[81,62],"Pivot":[60.44079,47.6565742]}]}

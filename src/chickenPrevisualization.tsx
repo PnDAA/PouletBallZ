@@ -1,7 +1,7 @@
 import React from "react";
 import "./utils.css";
 import Vector2D from './vector2D';
-import { ChickenDisplayService, ElementColor, ElementInfo, IChickenDisplayInfo } from "./chickenDisplayService";
+import { ChickenDisplayService, ElementColor, ElementInfo, IChickenDisplayInfo, ImageInfo } from "./chickenDisplayService";
 import { RestRequestsService } from "./restRequestsService";
 import { elementsImages } from "./Assets/UnityExport/chickenElements";
 
@@ -66,9 +66,13 @@ export default class ChickenPrevisualization extends React.Component {
         spriteContext.restore();
     }
 
-    private async drawElementAsync(bodyPosition: Vector2D, elementInfo: ElementInfo, elementPosition: [number, number]): Promise<void> {
+    private async drawElementAsync(bodyPosition: Vector2D, elementInfo: ElementInfo, elementPosition: [number, number], imageIndex:number = 0): Promise<void> {
+        let imageInfo: ImageInfo = elementInfo.Images[imageIndex];
         // Pivot is specified from bottom left (y reversed). So we need to remove the sprite height.
-        let realPivot = new Vector2D(-elementInfo.Pivot![0], elementInfo.Pivot![1] - elementInfo.Size![1]);
+        let imagePivot: number[] = imageInfo.Pivot!;
+        let imageSize: number[] = imageInfo.Size!;
+        let realPivot = new Vector2D(-imagePivot[0], imagePivot[1] - imageSize[1]);
+
         let pivot = Vector2D.add(bodyPosition, realPivot);
 
         // Remove x cause prefab is flipped
@@ -78,9 +82,8 @@ export default class ChickenPrevisualization extends React.Component {
         let elementImagePosition = Vector2D.add(pivot, new Vector2D(-elementPosition[0] * ratio, -elementPosition[1] * ratio))
 
         // Get color
-        let color:string | undefined = undefined;
-        switch (elementInfo.Color)
-        {
+        let color: string | undefined = undefined;
+        switch (elementInfo.Color) {
             case ElementColor.None:
                 color = undefined;
                 break;
@@ -91,7 +94,7 @@ export default class ChickenPrevisualization extends React.Component {
                 color = RestRequestsService.getHexColorAsync("Secondary");
                 break;
         }
-        await this.drawImageInCanvasWithColorAsync(elementsImages[elementInfo.RequireKey], elementImagePosition, color);
+        await this.drawImageInCanvasWithColorAsync(elementsImages[imageInfo.RequireKey], elementImagePosition, color);
     }
 
     public async DrawAsync() {
@@ -117,10 +120,16 @@ export default class ChickenPrevisualization extends React.Component {
         let bodyPosition = Vector2D.add(startPosition, new Vector2D(cdi.BodyPivot[0], -cdi.BodyPivot[1]));
 
         let chicken = RestRequestsService.getChicken();
-        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getEyeInfo(chicken.Eye), cdi.EyePosition);
-        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getArmInfo(chicken.Arm), cdi.ArmPosition);
-        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getHairInfo(chicken.Hair), cdi.HairPosition);
-        await this.drawElementAsync(bodyPosition, ChickenDisplayService.getMouthInfo(chicken.Mouth), cdi.MouthPosition);
+        let armInfo = ChickenDisplayService.getArmInfo(chicken.Arm);
+        let eyeInfo = ChickenDisplayService.getEyeInfo(chicken.Eye);
+        let hairInfo = ChickenDisplayService.getHairInfo(chicken.Hair);
+        let mouthInfo = ChickenDisplayService.getMouthInfo(chicken.Mouth);
+
+        await this.drawElementAsync(bodyPosition, armInfo, cdi.LeftArmPosition, 1);
+        await this.drawElementAsync(bodyPosition, eyeInfo, cdi.EyePosition);
+        await this.drawElementAsync(bodyPosition, mouthInfo, cdi.MouthPosition);
+        await this.drawElementAsync(bodyPosition, armInfo, cdi.RightArmPosition, 2);
+        await this.drawElementAsync(bodyPosition, hairInfo, cdi.HairPosition);
     }
 
     public async componentDidMount() {

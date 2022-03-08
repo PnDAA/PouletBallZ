@@ -1,1 +1,1 @@
-{"RequireKey":"Mouth.Wolf","Index":7,"Name":"Wolf","FriendlyName":"Loup","Description":"Grrrr !","HowToUnlock":"Default","Rarity":0,"Image":"Wolf.png","Size":[47,38],"Pivot":[40.5538559,30.83704],"Color":0}
+{"RequireKey":"Mouth.Wolf","Index":7,"Name":"Wolf","FriendlyName":"Loup","Description":"Grrrr !","HowToUnlock":"Default","Rarity":0,"Color":0,"Images":[{"RequireKey":"Mouth.Wolf","Path":"Wolf.png","Name":"Wolf.png","Size":[47,38],"Pivot":[40.5538559,30.83704]}]}

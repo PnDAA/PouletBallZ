@@ -1,1 +1,1 @@
-{"RequireKey":"Wait.Rotate","Index":4,"Name":"Rotate","FriendlyName":"Mange?","Description":"Tu as faim ?","HowToUnlock":"Default","Rarity":0,"Image":"Rotate.gif","Size":null,"Pivot":null,"Color":2}
+{"RequireKey":"Wait.Rotate","Index":4,"Name":"Rotate","FriendlyName":"Mange?","Description":"Tu as faim ?","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Wait.Rotate","Path":"Rotate.gif","Name":"Rotate.gif","Size":null,"Pivot":null}]}

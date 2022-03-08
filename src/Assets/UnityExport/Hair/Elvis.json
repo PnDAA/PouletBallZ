@@ -1,1 +1,1 @@
-{"RequireKey":"Hair.Elvis","Index":4,"Name":"Elvis","FriendlyName":"Elvis","Description":"Rock'n Roll !","HowToUnlock":"Default","Rarity":0,"Image":"Elvis.png","Size":[133,95],"Pivot":[97.61465,39.0647469],"Color":1}
+{"RequireKey":"Hair.Elvis","Index":4,"Name":"Elvis","FriendlyName":"Elvis","Description":"Rock'n Roll !","HowToUnlock":"Default","Rarity":0,"Color":1,"Images":[{"RequireKey":"Hair.Elvis","Path":"Elvis.png","Name":"Elvis.png","Size":[133,95],"Pivot":[97.61465,39.0647469]}]}

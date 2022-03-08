@@ -1,1 +1,1 @@
-{"RequireKey":"Mouth.Empty","Index":8,"Name":"Empty","FriendlyName":"Vide","Description":"Comme ma vie...","HowToUnlock":"Default","Rarity":0,"Image":"Empty.png","Size":[7,5],"Pivot":[3.510857,2.925],"Color":2}
+{"RequireKey":"Mouth.Empty","Index":8,"Name":"Empty","FriendlyName":"Vide","Description":"Comme ma vie...","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Mouth.Empty","Path":"Empty.png","Name":"Empty.png","Size":[7,5],"Pivot":[3.510857,2.925]}]}

@@ -1,1 +1,1 @@
-{"RequireKey":"Eye.Basic","Index":1,"Name":"Basic","FriendlyName":"Basique","Description":"Vous avez les bases.","HowToUnlock":"Default","Rarity":0,"Image":"Basic.png","Size":[69,44],"Pivot":[38.7859268,8.20221],"Color":2}
+{"RequireKey":"Eye.Basic","Index":1,"Name":"Basic","FriendlyName":"Basique","Description":"Vous avez les bases.","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Eye.Basic","Path":"Basic.png","Name":"Basic.png","Size":[69,44],"Pivot":[38.7859268,8.20221]}]}

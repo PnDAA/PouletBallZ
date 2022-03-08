@@ -1,1 +1,1 @@
-{"RequireKey":"Hair.Crazy","Index":3,"Name":"Crazy","FriendlyName":"Fou","Description":"Tu pourrais quand même te coiffer.","HowToUnlock":"Default","Rarity":0,"Image":"Crazy.png","Size":[143,119],"Pivot":[103.094574,39.9874458],"Color":1}
+{"RequireKey":"Hair.Crazy","Index":3,"Name":"Crazy","FriendlyName":"Fou","Description":"Tu pourrais quand même te coiffer.","HowToUnlock":"Default","Rarity":0,"Color":1,"Images":[{"RequireKey":"Hair.Crazy","Path":"Crazy.png","Name":"Crazy.png","Size":[143,119],"Pivot":[103.094574,39.9874458]}]}

@@ -1,1 +1,1 @@
-{"RequireKey":"Hair.GoodLooking","Index":2,"Name":"GoodLooking","FriendlyName":"Frange","Description":"On dirait du dentifrice.","HowToUnlock":"Default","Rarity":0,"Image":"GoodLooking.png","Size":[115,69],"Pivot":[73.77972,43.5918541],"Color":1}
+{"RequireKey":"Hair.GoodLooking","Index":2,"Name":"GoodLooking","FriendlyName":"Frange","Description":"On dirait du dentifrice.","HowToUnlock":"Default","Rarity":0,"Color":1,"Images":[{"RequireKey":"Hair.GoodLooking","Path":"GoodLooking.png","Name":"GoodLooking.png","Size":[115,69],"Pivot":[73.77972,43.5918541]}]}
