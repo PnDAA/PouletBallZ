@@ -87,15 +87,17 @@ export default class ChickenPrevisualization extends React.Component {
 
         context.clearRect(0, 0, context.canvas.width, context.canvas.height); // in case of redraw
 
-        // Draw at 57 cause canvas is bigger in heigth than the image to be able to display hairs correctly. To put the image at the bottom of the canvas I've add the difference.
-        await this.drawImageInCanvasWithColorAsync(require("./Assets/UnityExport/body.png"), new Vector2D(0, 57), primaryColor);
+        let startX = 40; // To have some space at the left of the chicken
+        let startY = 57; // Draw at 57 cause canvas is bigger in heigth than the image to be able to display hairs correctly. To put the image at the bottom of the canvas I've add the difference.
+
+        await this.drawImageInCanvasWithColorAsync(require("./Assets/UnityExport/body.png"), new Vector2D(startX, startY), primaryColor);
 
         let cdi: IChickenDisplayInfo = ChickenDisplayService.getChickenDisplayInfo();
 
         let position: Vector2D = new Vector2D();
         // Go to bottom cause unity coordinates start from bottom
         // (-151 cause base body image doesn't have the legs)
-        let startPosition = Vector2D.add(position, new Vector2D(0, context.canvas.height - 151));
+        let startPosition = Vector2D.add(position, new Vector2D(startX, context.canvas.height - 151));
 
         // -y cause y is flipped. Pivot is set from bottom so it works.
         let bodyPosition = Vector2D.add(startPosition, new Vector2D(cdi.BodyPivot[0], -cdi.BodyPivot[1]));
@@ -116,10 +118,10 @@ export default class ChickenPrevisualization extends React.Component {
     // multiple canvas to be able to multiply color to sprite elements
     render() {
         return <>
-            <canvas width="356" height="600" ref={canvas => this.coloringCanvasElement = canvas!} style={{ position: "absolute" }} />
-            <canvas width="356" height="600" ref={canvas => this.spriteCanvasElement = canvas!} style={{ position: "absolute" }} />
+            <canvas width="400" height="600" ref={canvas => this.coloringCanvasElement = canvas!} style={{ position: "absolute" }} />
+            <canvas width="400" height="600" ref={canvas => this.spriteCanvasElement = canvas!} style={{ position: "absolute" }} />
             <div className='center'>
-                <canvas width="356" height="600" ref={canvas => this.canvasElement = canvas!} />
+                <canvas width="400" height="600" ref={canvas => this.canvasElement = canvas!} />
             </div>
         </>
     }
