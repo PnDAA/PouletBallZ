@@ -62,7 +62,11 @@ export class ChickenDisplay extends React.Component<ChickenDisplayProps> {
                 <ElementDisplay elementInfo={this.armInfo} onChangeClick={() => this.props.onClickElementChange?.("Arm")} />
                 <ElementDisplay elementInfo={this.hairInfo} onChangeClick={() => this.props.onClickElementChange?.("Hair")} />
                 <ElementDisplay elementInfo={this.mouthInfo} onChangeClick={() => this.props.onClickElementChange?.("Mouth")} />
-                <ElementDisplay elementInfo={this.eggInfo} onChangeClick={() => this.props.onClickElementChange?.("Egg")} />
+
+                {
+                    // Check this.eggInfo cause Egg could be not defined in the DB if the user didn't login after the drop update.
+                    this.eggInfo && <ElementDisplay elementInfo={this.eggInfo} onChangeClick={() => this.props.onClickElementChange?.("Egg")} />
+                }
             </Grid>
             <br />
             <Grid container spacing={2}>
