@@ -34,6 +34,10 @@ export class ChickenDisplay extends React.Component<ChickenDisplayProps> {
         return ChickenDisplayService.getMouthInfo(this.chicken.Mouth);
     }
 
+    public get eggInfo(): ElementInfo {
+        return ChickenDisplayService.getEggInfo(this.chicken.Egg);
+    }
+
     public get walkAnimationInfo(): ElementInfo {
         return ChickenDisplayService.getWalkAnimationInfo(this.chicken.WalkAnimation);
     }
@@ -58,6 +62,7 @@ export class ChickenDisplay extends React.Component<ChickenDisplayProps> {
                 <ElementDisplay elementInfo={this.armInfo} onChangeClick={() => this.props.onClickElementChange?.("Arm")} />
                 <ElementDisplay elementInfo={this.hairInfo} onChangeClick={() => this.props.onClickElementChange?.("Hair")} />
                 <ElementDisplay elementInfo={this.mouthInfo} onChangeClick={() => this.props.onClickElementChange?.("Mouth")} />
+                <ElementDisplay elementInfo={this.eggInfo} onChangeClick={() => this.props.onClickElementChange?.("Egg")} />
             </Grid>
             <br />
             <Grid container spacing={2}>

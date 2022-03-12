@@ -21,6 +21,7 @@ export interface Chicken {
     Eye: number;
     Hair: number;
     Mouth: number;
+    Egg: number;
     WaitAnimation: number;
     WalkAnimation: number;
     PrimaryColor: Color;
@@ -86,6 +87,7 @@ class RestRequestsServiceClass {
             case "Hair": this._chicken!.Hair = index; break;
             case "Eye": this._chicken!.Eye = index; break;
             case "Mouth": this._chicken!.Mouth = index; break;
+            case "Egg": this._chicken!.Egg = index; break;
             case "Wait": this._chicken!.WaitAnimation = index; break;
             case "Walk": this._chicken!.WalkAnimation = index; break;
             default: throw new Error("Not implemented");

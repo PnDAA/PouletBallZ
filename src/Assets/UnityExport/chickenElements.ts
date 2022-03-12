@@ -1,5 +1,5 @@
 // GENERATED CODE. DON'T MODIFY. Look at SpritesExporter.cs.
-export type ElementInfoType = "Hair" | "Eye" | "Mouth" | "Arm" | "Wait" | "Walk";
+export type ElementInfoType = "Hair" | "Eye" | "Mouth" | "Arm" | "Wait" | "Walk" | "Egg";
 export type AnimationInfoType = "Wait" | "Walk";
 export type SpriteInfoType = "Hair" | "Eye" | "Mouth" | "Arm";
 export let elementsJsons: { [name: string]: any } = {};
@@ -120,3 +120,7 @@ elementsJsons['Walk.Run'] = require('./Walk/Run.json');
 elementsImages['Walk.Run'] = require('./Walk/Run.gif');
 elementsJsons['Walk.OneLeg'] = require('./Walk/OneLeg.json');
 elementsImages['Walk.OneLeg'] = require('./Walk/OneLeg.gif');
+elementsJsons['Egg.Normal'] = require('./Egg/Normal.json');
+elementsImages['Egg.Normal'] = require('./Egg/Normal.png');
+elementsJsons['Egg.Pokeball'] = require('./Egg/Pokeball.json');
+elementsImages['Egg.Pokeball'] = require('./Egg/Pokeball.png');

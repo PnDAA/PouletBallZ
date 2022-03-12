@@ -119,6 +119,10 @@ export class ChickenDisplayServiceClass {
         return this.getElementInfo("Mouth", index);
     }
 
+    public getEggInfo(index: number): ElementInfo {
+        return this.getElementInfo("Egg", index);
+    }
+
     public getHairInfo(index: number): ElementInfo {
         return this.getElementInfo("Hair", index);
     }
