@@ -1,1 +1,1 @@
-{"RequireKey":"Egg.Normal","Index":1,"Name":"Normal","FriendlyName":"Basique","Description":"Rien d'original.","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Egg.Normal","Path":"Normal.png","Name":"Normal.png","Size":null,"Pivot":null}]}
+{"RequireKey":"Egg.Normal","Index":1,"Name":"Normal","FriendlyName":"Basique","Description":"Rien d'original.","HowToUnlock":"Default","Rarity":0,"Color":2,"Images":[{"RequireKey":"Egg.Normal","Path":"Normal.png","Name":"Normal.png","Size":[143,148],"Pivot":[85.0,85.0]}]}
